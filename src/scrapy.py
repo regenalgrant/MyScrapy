@@ -30,21 +30,16 @@ INSPECTION_PARAMS = {
 
 
 def get_inspection_page(**kwargs):
-    """Fetch a set of search results for you. Accepts keyword arguments for
-    the possible query parameters. Builds a dictionary of request query
-    parameters from incoming keywords. Make a request to the King County
-    server using this query. Return the bytes content of the response and the
-    encoding if there is no error. Raise an error if there is a problem with
-    the response.
-    """
+    """Fetching search results.  Accepting key arguments in query parameters.
+    Building dictionary of requests queries in parameters from keywords."""
     url = INSPECTION_DOMAIN + INSPECTION_PATH
     params = INSPECTION_PARAMS.copy()
     for key, val in kwargs.items():
         if key in INSPECTION_PARAMS:
             params[key] = val
-    el_response = requests.get(url, params=params)
-    el_response.raise_for_status()
-    return el_response.content, el_response.encoding
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    return response.content, response.encoding
 
 
 def load_inspection_page(src):
